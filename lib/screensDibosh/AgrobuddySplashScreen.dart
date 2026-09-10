@@ -1,9 +1,26 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
 
-class AgrobuddySplashScreen extends StatelessWidget{
+class AgrobuddySplashScreen extends StatefulWidget {
   const AgrobuddySplashScreen({super.key});
 
+  @override
+  State<AgrobuddySplashScreen> createState() => _AgrobuddySplashScreenState();
+}
 
+class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(const Duration(seconds: 3), () {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen(),
+        ),
+
+      );
+    });
+  }
 
   Widget build(BuildContext context){
     return Scaffold(
@@ -70,4 +87,20 @@ class AgrobuddySplashScreen extends StatelessWidget{
 
   }
 
+}
+
+class HomeScreen extends StatelessWidget{
+  const HomeScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Center(
+        child: Text(
+          'AgroBuddy HOME',
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+    );
+  }
 }
