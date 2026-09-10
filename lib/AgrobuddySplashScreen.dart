@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class AgrobuddySplashScreen extends StatelessWidget{
   const AgrobuddySplashScreen({super.key});
 
-  
+
 
   Widget build(BuildContext context){
     return Scaffold(
