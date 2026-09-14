@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'my_storefront_screen.dart';
 
 class RoleselectionScreen extends StatefulWidget {
   const RoleselectionScreen({super.key});
@@ -65,14 +66,14 @@ class RoleSelectionScreenState extends State<RoleselectionScreen>{
                 
                 child: ElevatedButton(
                   onPressed: (){
-                    // if(selectedRole == 0){
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => const MyStorefrontScreen(),
-                    //     ),
-                    //   ),
-                    // }
+                    if(selectedRole == 0 || selectedRole == 1 || selectedRole == 2 ){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyStorefrontScreen(),
+                        ),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFD4A017),
