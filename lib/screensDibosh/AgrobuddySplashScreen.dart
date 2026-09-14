@@ -49,7 +49,7 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
                 child: Text(
                   'AB',
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Color(0xFF14221A),
                     letterSpacing: 1.0,

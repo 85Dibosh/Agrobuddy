@@ -52,7 +52,7 @@ class RoleSelectionScreenState extends State<RoleselectionScreen>{
               buildRoleCard(index: 0, title: "I'm a Farmer", subtitle: "Manage Crops & Vets", icon: Icons.eco),
 
               SizedBox(height: 16), //gap between farmer and expert
-              buildRoleCard(index: 1, title: "I'm an Expert", subtitle: "Consult & Diagnose", icon: Icons.attach_money),
+              buildRoleCard(index: 1, title: "I'm an Expert", subtitle: "Consult & Diagnose", icon: Icons.psychology),
 
               SizedBox(height: 16),
               buildRoleCard(index: 2, title: "I'm a Buyer", subtitle: "Sourcing & Logistics", icon: Icons.shopping_cart_outlined),
