@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'screensDibosh/AgrobuddySplashScreen.dart';
+import 'screensDibosh/agrobuddy_splash_screen.dart';
 
 void main(){
   runApp(const MyApp());

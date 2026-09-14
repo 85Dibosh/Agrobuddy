@@ -1,4 +1,4 @@
-import 'package:agrobuddy/screensDibosh/RoleSelection.dart';
+import 'package:agrobuddy/screensDibosh/role_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -23,6 +23,7 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
     });
   }
 
+  @override
   Widget build(BuildContext context){
     return Scaffold(
       backgroundColor: Color(0xFF121C16),
