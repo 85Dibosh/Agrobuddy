@@ -1,3 +1,4 @@
+import 'package:agrobuddy/screensDibosh/RoleSelection.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -15,7 +16,7 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const HomeScreen(),
+        MaterialPageRoute(builder: (context) => const RoleselectionScreen(),
         ),
 
       );
@@ -24,7 +25,7 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
 
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: const Color(0xFF121C16),
+      backgroundColor: Color(0xFF121C16),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -33,18 +34,18 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
               width: 76,
               height: 76,
               decoration: BoxDecoration(
-                color: const Color(0xFFE5A633),
+                color: Color(0xFFE5A633),
                 shape: BoxShape.circle,
 
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFFE5A633).withValues(alpha: 0.35),
+                    color: Color(0xFFE5A633).withValues(alpha: 0.35),
                     blurRadius: 25,
                     spreadRadius: 6,
                   ),
                 ],
               ),
-              child: const Center(
+              child: Center(
                 child: Text(
                   'AB',
                   style: TextStyle(
@@ -58,8 +59,8 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
             ),
 
 
-            const SizedBox(height: 28),
-            const Text(
+             SizedBox(height: 28),
+             Text(
               'AgroBuddy',
               style: TextStyle(
                 fontSize: 40,
@@ -68,9 +69,9 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
               ),
             ),
 
-            const SizedBox(height: 16),
+             SizedBox(height: 16),
 
-            const Text(
+             Text(
               'Building smarter tools for modern\nfarming',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -80,6 +81,18 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
 
               ),
             ),
+            
+            SizedBox(height: 36),
+            SizedBox(
+              width: 28,
+              height: 28,
+              child: CircularProgressIndicator(
+                strokeWidth: 2.5,
+                color: Color(0xFFE5A633),
+              ),
+            )
+
+            
           ],
         ),
       ),
@@ -89,18 +102,20 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
 
 }
 
-class HomeScreen extends StatelessWidget{
-  const HomeScreen({super.key});
+//intial placeholder for splash
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text(
-          'AgroBuddy HOME',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
-    );
-  }
-}
+// class HomeScreen extends StatelessWidget{
+//   const HomeScreen({super.key});
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return const Scaffold(
+//       body: Center(
+//         child: Text(
+//           'AgroBuddy HOME',
+//           style: TextStyle(fontSize: 20),
+//         ),
+//       ),
+//     );
+//   }
+// }
