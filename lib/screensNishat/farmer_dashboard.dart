@@ -10,21 +10,10 @@ class FarmerDashboardScreen extends StatefulWidget {
 class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
   int selectedTab = 0;
 
-  String farmerName = "Abdul Karim";
+  String farmerName = "Fahim Karim";
   String farmerLocation = "Bogura, Bangladesh";
   int trustScore = 94;
   double farmArea = 4.5;
-
-  List<Map<String, String>> storeListings = [
-    {"name": "Organic Tomatoes", "price": "40 BDT/kg", "stock": "500 kg"},
-    {"name": "Fresh Potatoes", "price": "25 BDT/kg", "stock": "1200 kg"},
-    {"name": "Green Chili", "price": "90 BDT/kg", "stock": "150 kg"},
-  ];
-
-  List<Map<String, String>> pendingOrders = [
-    {"id": "ORD-101", "item": "Organic Tomatoes (100 kg)", "status": "Pending"},
-    {"id": "ORD-102", "item": "Fresh Potatoes (500 kg)", "status": "Confirmed"},
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +21,7 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
       backgroundColor: Color(0xFF121B13),
       appBar: AppBar(
         backgroundColor: Color(0xFF121B13),
-        elevation: 0,
+
         title: Row(
           children: [
             Container(
@@ -41,7 +30,7 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                 color: Color(0xFFE5B800),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.agriculture, color: Color(0xFF121B13), size: 18),
+              child: Icon(Icons.agriculture, color: Color(0xFF121B13), size: 20),
             ),
             SizedBox(width: 10),
             Text(
@@ -69,7 +58,7 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                     ),
                     body: Center(
                       child: Text(
-                        "No new notifications",
+                        "Page not available",
                         style: TextStyle(color: Colors.white),
                       ),
                     ),
@@ -248,14 +237,6 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                               size: 22,
                             ),
                             SizedBox(height: 6),
-                            Text(
-                              storeListings.length.toString(),
-                              style: TextStyle(
-                                color: Color(0xFFFFFFFF),
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
                             SizedBox(height: 2),
                             Text(
                               "Listings",
@@ -319,13 +300,6 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                     color: Color(0xFFA0AAB0),
                   ),
                   onTap: () {
-                    setState(() {
-                      storeListings.add({
-                        "name": "New Crop Harvest",
-                        "price": "50 BDT/kg",
-                        "stock": "100 kg"
-                      });
-                    });
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("Added new crop listing!")),
                     );
@@ -356,13 +330,7 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text(
-                    storeListings.length.toString() + " crops listed",
-                    style: TextStyle(
-                      color: Color(0xFFA0AAB0),
-                      fontSize: 12,
-                    ),
-                  ),
+
                   trailing: Icon(
                     Icons.arrow_forward_ios,
                     size: 14,
@@ -395,13 +363,7 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  subtitle: Text(
-                    pendingOrders.length.toString() + " orders pending",
-                    style: TextStyle(
-                      color: Color(0xFFA0AAB0),
-                      fontSize: 12,
-                    ),
-                  ),
+
                   trailing: Icon(
                     Icons.arrow_forward_ios,
                     size: 14,
