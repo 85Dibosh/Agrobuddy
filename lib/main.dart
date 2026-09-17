@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
+<<<<<<< Updated upstream
 void main() {
+=======
+import 'App_screen/agrobuddy_splash_screen.dart';
+
+void main(){
+>>>>>>> Stashed changes
   runApp(const MyApp());
 }
 
