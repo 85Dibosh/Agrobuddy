@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 
 class AddNewCropScreen extends StatefulWidget{
   AddNewCropScreen({super.key});
@@ -21,7 +20,7 @@ class AddNewCropScreenState extends State<AddNewCropScreen>{
   String priceFlexibility = 'Fixed';
   TextEditingController availabilityController = TextEditingController(text: '1,200');
   TextEditingController costController = TextEditingController(text: '45');
-  TextEditingController descriptionController = TextEditingController(text: 'Freshly harvested, naturally grown without chemical pesticides.');
+  TextEditingController descriptionController = TextEditingController();
 
   @override
   void dispose(){ //to prevent memory leak and better efficiency

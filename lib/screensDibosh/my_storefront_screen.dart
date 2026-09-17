@@ -1,5 +1,7 @@
+import 'package:agrobuddy/screensNishat/farmer_profile.dart';
 import 'package:flutter/material.dart';
-
+import 'package:agrobuddy/screensNishat/farmer_dashboard.dart';
+import 'add_crop.dart';
 
 class MyStorefrontScreen extends StatefulWidget{
   MyStorefrontScreen({super.key});
@@ -58,7 +60,7 @@ class MyStorefrontScreenState extends State<MyStorefrontScreen>{
                padding: EdgeInsets.symmetric(horizontal: 8,vertical: 6),
                decoration: BoxDecoration(
                  color: Color(0xFFD4A017),
-                 borderRadius: BorderRadius.circular(8),
+                 shape: BoxShape.circle,
                ),
                child: Text(
                  'AB',
@@ -87,23 +89,14 @@ class MyStorefrontScreenState extends State<MyStorefrontScreen>{
          //actions
          actions: [
            Container(
-             margin: EdgeInsets.only(right: 8),
-             
+             margin: EdgeInsets.only(right: 16),
              decoration: BoxDecoration(
                color: Color(0xFF1E2B22),
                shape: BoxShape.circle,
              ),
-
              child: IconButton(
-               icon: Icon(Icons.notifications_none,color: Colors.white70,size: 20),
-               onPressed: (){},
-             ),
-           ),
-           Padding(
-             padding: EdgeInsets.only(right: 16),
-             child: CircleAvatar(
-               radius: 18,
-               backgroundImage: AssetImage('assets/images/avatar.png'),
+               icon: Icon(Icons.notifications_none, color: Colors.white70, size: 20),
+               onPressed: () {},
              ),
            ),
          ],
@@ -117,7 +110,7 @@ class MyStorefrontScreenState extends State<MyStorefrontScreen>{
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
                Text(
-                 'My Market',
+                 'My Storefront',
                  style: TextStyle(
                    fontSize: 32,
                    fontWeight: FontWeight.bold,
@@ -139,7 +132,14 @@ class MyStorefrontScreenState extends State<MyStorefrontScreen>{
                  width: double.infinity,
                  height: 54,
                  child: ElevatedButton(
-                   onPressed: (){},
+                   onPressed: (){
+                     Navigator.push(
+                       context,
+                       MaterialPageRoute(
+                         builder: (context) => AddNewCropScreen(),
+                       ),
+                     );
+                   },
                    style: ElevatedButton.styleFrom(
                      backgroundColor: Color(0xFFD4A017),
                      shape: RoundedRectangleBorder(
@@ -177,9 +177,25 @@ class MyStorefrontScreenState extends State<MyStorefrontScreen>{
        bottomNavigationBar: BottomNavigationBar(
          currentIndex: currentNavIndex,
          onTap: (index){
-           setState(() {
-             currentNavIndex = index;
-           });
+           if (index == 0) {
+             Navigator.pushReplacement(
+               context,
+               MaterialPageRoute(
+                 builder: (context) => FarmerDashboardScreen(),
+               ),
+             );
+           } else if (index == 3) {
+             Navigator.push(
+               context,
+               MaterialPageRoute(
+                 builder: (context) => FarmerProfileScreen(),
+               ),
+             );
+           } else {
+             setState(() {
+               currentNavIndex = index;
+             });
+           }
          },
          backgroundColor: Color(0xFF14201A),
          type: BottomNavigationBarType.fixed, // fixes tab positions

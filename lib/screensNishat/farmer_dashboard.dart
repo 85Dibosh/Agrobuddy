@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'farmer_profile.dart';
+import 'package:agrobuddy/screensDibosh/add_crop.dart';
+import 'package:agrobuddy/screensDibosh/my_storefront_screen.dart';
+import 'incoming_order.dart';
 
 class FarmerDashboardScreen extends StatefulWidget {
   FarmerDashboardScreen({Key? key}) : super(key: key);
@@ -9,7 +13,7 @@ class FarmerDashboardScreen extends StatefulWidget {
 class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
   int selectedTab = 0;
   String farmerName = "Fahim Karim";
-  String farmerLocation = "Bogura, Bangladesh";
+  String farmerLocation = "Bogura, Rajshahi";
   int trustScore = 94;
   double farmArea = 4.5;
 
@@ -20,8 +24,9 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
 
       appBar: AppBar(
         backgroundColor: Color(0xFF121B13),
-        title: Row(
+        leading: Row(
           children: [
+            SizedBox(width: 10),
             Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -30,16 +35,20 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
               ),
               child: Center(
                 child: Text(
-                  'AB',
-                  style: TextStyle(
-                    color: Color(0xFF121B13),
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  )
+                    'AB',
+                    style: TextStyle(
+                      color: Color(0xFF121B13),
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    )
                 ),
               ),
             ),
-            SizedBox(width: 10),
+          ],
+        ),
+        title: Row(
+          children: [
+            //SizedBox(width: 10),
             Text(
               "AgroBuddy",
               style: TextStyle(
@@ -260,15 +269,17 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                         ),
                         child: Column(
                           children: [
-                            Icon(
-                              Icons.inventory_2_outlined,
-                              color: Colors.greenAccent,
-                              size: 22,
-                            ),
-                            SizedBox(height: 6),
-                            SizedBox(height: 2),
                             Text(
-                              "Listings",
+                              "12+ Years",
+                              style: TextStyle(
+                                color: Color(0xFFE5B800), // Brand gold
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 30),
+                            Text(
+                              "Experience",
                               style: TextStyle(
                                 color: Color(0xFFA0AAB0),
                                 fontSize: 11,
@@ -333,8 +344,11 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                     color: Color(0xFFA0AAB0),
                   ),
                   onTap: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Added new crop listing!")),
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddNewCropScreen(),
+                      ),
                     );
                   },
                 ),
@@ -371,7 +385,14 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                     size: 14,
                     color: Color(0xFFA0AAB0),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MyStorefrontScreen(),
+                      ),
+                    );
+                  },
                 ),
               ),
 
@@ -406,7 +427,14 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
                     size: 14,
                     color: Color(0xFFA0AAB0),
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => IncomingOrdersScreen(),
+                      ),
+                    );
+                  },
                 ),
               ),
 
@@ -465,16 +493,25 @@ class FarmerDashboardScreenState extends State<FarmerDashboardScreen> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: selectedTab,
         onTap: (index) {
-          setState(() {
-            selectedTab = index;
-          });
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FarmerProfileScreen(),
+              ),
+            );
+          } else {
+            setState(() {
+              selectedTab = index;
+            });
+          }
         },
         backgroundColor: Color(0xFF121B13),
         selectedItemColor: Color(0xFFE5B800),
         unselectedItemColor: Color(0xFFA0AAB0),
         type: BottomNavigationBarType.fixed,
         items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home_filled), label: "Home"),
+          BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: "Home"),
           BottomNavigationBarItem(
             icon: Icon(Icons.storefront_outlined),
             label: "Market",
