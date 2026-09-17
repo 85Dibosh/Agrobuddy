@@ -309,12 +309,21 @@ class AddNewCropScreenState extends State<AddNewCropScreen>{
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color(0xFFD4A017),
                     shape: RoundedRectangleBorder(
-                      
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    elevation: 0,
+                  ),
+                  child: Text(
+                    'Publish Listing',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF14201A),
                     ),
                   ),
                 ),
               ),
-
+              SizedBox(height: 24),
             ],
           ),
         ),
