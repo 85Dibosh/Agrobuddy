@@ -64,3 +64,85 @@ class PhoneEntryScreen extends StatelessWidget {
               SizedBox(height: 32),
 
 
+              Text(
+                "Enter your phone\nnumber.",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  height: 1.2,
+                ),
+              ),
+
+              SizedBox(height: 32),
+
+
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                decoration: BoxDecoration(
+                  color: Color(0xFF1B281E),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Color(0xFFE5A93C), // Gold border highlight
+                    width: 1,
+                  ),
+                ),
+                child: Row(
+                  children: [
+
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF142017),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Text(
+                        "+880",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+
+                    SizedBox(width: 12),
+
+
+                    Container(
+                      width: 1,
+                      height: 28,
+                      color: Colors.white24,
+                    ),
+
+                    SizedBox(width: 12),
+
+
+                    Expanded(
+                      child: TextField(
+                        keyboardType: TextInputType.phone,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.0,
+                        ),
+                        decoration: InputDecoration(
+                          hintText: "01712-345678",
+                          hintStyle: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Spacer(),
+
+
+}
