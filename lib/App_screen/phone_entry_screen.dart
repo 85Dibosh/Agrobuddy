@@ -144,5 +144,53 @@ class PhoneEntryScreen extends StatelessWidget {
 
               Spacer(),
 
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFE5A93C), // Gold button
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(26),
+                    ),
+                  ),
+                  onPressed: () {
 
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                          backgroundColor: Color(0xFF0F1811),
+                          appBar: AppBar(
+                            title: Text("Verification"),
+                            backgroundColor: Color(0xFF0F1811),
+                          ),
+                          body: Center(
+                            child: Text(
+                              "Verification Code Sent!",
+                              style: TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Send Code",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+              ),
+
+              SizedBox(height: 12),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
