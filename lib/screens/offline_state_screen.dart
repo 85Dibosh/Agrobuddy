@@ -53,119 +53,76 @@ class _OfflineScreenState extends State<OfflineScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Color(0xFF132018),
+      backgroundColor: AppTheme.darkBackground,
       body: SafeArea(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 28),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon:  Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Container(
-                    width: 38,
-                    height: 38,
-                    decoration:  BoxDecoration(
-                      color: Color(0xFFE5A633),
-                      shape: BoxShape.circle,
-                    ),
-                    child:  Center(
-                      child: Text(
-                        'AB',
-                        style: TextStyle(
-                          color: Color(0xFF132018),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 108,
-                      height: 108,
-                      decoration:  BoxDecoration(
-                        color: Color(0xFF263326),
-                        shape: BoxShape.circle,
-                      ),
-                      child:  Center(
-                        child: Icon(
-                          Icons.wifi_off_rounded,
-                          size: 46,
-                          color: Color(0xFFE5A633),
-                        ),
-                      ),
-                    ),
-                     SizedBox(height: 32),
-
-                     Text(
-                      "You're offline",
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                     SizedBox(height: 12),
-
-                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Text(
-                        'Check your mobile network or Wi-Fi connection and try again.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.white70,
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                  ],
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: AppTheme.pillBackground,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppTheme.errorRed.withValues(alpha: 0.4), width: 2),
+                ),
+                child: const Icon(
+                  Icons.wifi_off,
+                  color: AppTheme.errorRed,
+                  size: 50,
                 ),
               ),
-
+              const SizedBox(height: 28),
+              const Text(
+                "No Internet Connection",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                "Please check your network settings. AgroBuddy needs an active connection to sync harvest inventory and orders.",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: AppTheme.textMuted,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 36),
               SizedBox(
                 width: double.infinity,
-                height: 52,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor:  Color(0xFFE5A633),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    elevation: 0,
-                  ),
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                       SnackBar(
-                        content: Text('Checking connection...'),
-                        duration: Duration(seconds: 1),
-                      ),
-                    );
-                  },
-                  child:  Text(
-                    'Retry',
+                height: 50,
+                child: ElevatedButton.icon(
+                  onPressed: _isChecking ? null : _checkConnection,
+                  icon: _isChecking
+                      ? const SizedBox(
+                          width: 18,
+                          height: 18,
+                          child: CircularProgressIndicator(strokeWidth: 2, color: AppTheme.textDark),
+                        )
+                      : const Icon(Icons.refresh, color: AppTheme.textDark),
+                  label: const Text(
+                    "Try Again",
                     style: TextStyle(
-                      color: Color(0xFF132018),
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: AppTheme.textDark,
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppTheme.primaryGold,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
                     ),
                   ),
                 ),
               ),
-               SizedBox(height: 8),
             ],
           ),
         ),
