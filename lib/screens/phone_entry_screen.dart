@@ -3,8 +3,6 @@ import '../themes/app_theme.dart';
 import '../firebase_service.dart';
 import 'otp_verification_screen.dart';
 
-/// Screen 3: Phone Number Entry
-/// Collects user's phone number to initiate Firebase Phone Authentication.
 class PhoneEntryScreen extends StatefulWidget {
   final String selectedRole;
 
@@ -40,7 +38,6 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
       return;
     }
 
-    // Standardize full phone number with country code
     String formattedNumber = rawNumber;
     if (formattedNumber.startsWith('0')) {
       formattedNumber = formattedNumber.substring(1);
@@ -129,7 +126,6 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
               ),
               const SizedBox(height: 36),
 
-              // Phone Input Field with Country Code prefix
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                 decoration: BoxDecoration(
@@ -174,7 +170,6 @@ class _PhoneEntryScreenState extends State<PhoneEntryScreen> {
 
               const Spacer(),
 
-              // Submit / Send OTP button
               SizedBox(
                 width: double.infinity,
                 height: 52,
