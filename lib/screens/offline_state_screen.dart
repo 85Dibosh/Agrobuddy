@@ -1,8 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import '../themes/app_theme.dart';
+import '../widgets/offline_wrapper.dart';
 
-class OfflineScreen extends StatelessWidget {
-  const OfflineScreen({super.key});
 
+class OfflineScreen extends StatefulWidget {
+  final VoidCallback? onRetry;
+
+  const OfflineScreen({super.key, this.onRetry});
+
+  @override
+  State<OfflineScreen> createState() => _OfflineScreenState();
+}
+
+class _OfflineScreenState extends State<OfflineScreen> {
+  bool _isChecking = false;
+
+  Future<void> _checkConnection() async {
+    setState(() => _isChecking = true);
+    await Future.delayed(const Duration(milliseconds: 500));
+
+    try {
+      final results = await Connectivity().checkConnectivity();
+      final isOffline = results.isEmpty || results.every((r) => r == ConnectivityResult.none);
+
+      if (!isOffline) {
+        OfflineWrapper.forceOfflineNotifier.value = false;
+        if (mounted) {
+          if (widget.onRetry != null) {
+            widget.onRetry!();
+          } else if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text("Still offline. Please check your Wi-Fi or data connection."),
+              backgroundColor: AppTheme.errorRed,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      debugPrint("Error checking connectivity: $e");
+    } finally {
+      if (mounted) setState(() => _isChecking = false);
+    }
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
