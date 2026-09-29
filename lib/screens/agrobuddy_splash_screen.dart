@@ -1,4 +1,4 @@
-import 'package:agrobuddy/screensDibosh/role_selection_screen.dart';
+import 'package:agrobuddy/App_screen/role_selection_screen.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -16,7 +16,7 @@ class _AgrobuddySplashScreenState extends State<AgrobuddySplashScreen> {
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const RoleselectionScreen(),
+        MaterialPageRoute(builder: (context) => const RoleSelectionScreen(),
         ),
 
       );

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:agrobuddy/screensNishat/farmer_dashboard.dart';
+import 'package:agrobuddy/App_screen/farmer_dashboard_screen.dart';
 
-class RoleselectionScreen extends StatefulWidget {
-  const RoleselectionScreen({super.key});
+class RoleSelectionScreen extends StatefulWidget {
+  const RoleSelectionScreen({super.key});
   @override
-  State<RoleselectionScreen> createState() => RoleSelectionScreenState();
+  State<RoleSelectionScreen> createState() => RoleSelectionScreenState();
 }
 
-class RoleSelectionScreenState extends State<RoleselectionScreen>{
+class RoleSelectionScreenState extends State<RoleSelectionScreen>{
   int selectedRole = 0; // 0 for farmer, 1 expert, 2 buyer
 
   @override

@@ -1,7 +1,7 @@
-import 'package:agrobuddy/screensNishat/farmer_profile.dart';
+import 'package:agrobuddy/App_screen/farmer_profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:agrobuddy/screensNishat/farmer_dashboard.dart';
-import 'add_crop.dart';
+import 'package:agrobuddy/App_screen/farmer_dashboard_screen.dart';
+import 'add_new_crop_screen.dart';
 
 class MyStorefrontScreen extends StatefulWidget{
   MyStorefrontScreen({super.key});
