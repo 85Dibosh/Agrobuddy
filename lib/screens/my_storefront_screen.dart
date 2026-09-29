@@ -1,9 +1,9 @@
-import 'package:agrobuddy/App_screen/farmer_profile_screen.dart';
+import 'package:agrobuddy/screens/farmer_profile_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:agrobuddy/App_screen/farmer_dashboard_screen.dart';
+import 'package:agrobuddy/screens/farmer_dashboard_screen.dart';
 import 'add_new_crop_screen.dart';
-import 'farmer_dashboard.dart';
-import 'farmer_profile.dart';
+import 'farmer_dashboard_screen.dart';
+import 'farmer_profile_screen.dart';
 
 class MyStorefrontScreen extends StatefulWidget{
   MyStorefrontScreen({super.key});

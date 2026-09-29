@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'add_crop_screen.dart';
+import 'add_new_crop_screen.dart';
 import 'farmer_profile_screen.dart';
-import 'package:agrobuddy/App_screen/add_new_crop_screen.dart';
-import 'package:agrobuddy/App_screen/my_storefront_screen.dart';
+import 'package:agrobuddy/screens/add_new_crop_screen.dart';
+import 'package:agrobuddy/screens/my_storefront_screen.dart';
 import 'incoming_orders_screen.dart';
 import 'my_storefront_screen.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:agrobuddy/App_screen/farmer_dashboard_screen.dart';
+import 'package:agrobuddy/screens/farmer_dashboard_screen.dart';
 
-import 'farmer_dashboard.dart';
+import 'farmer_dashboard_screen.dart';
 
 class RoleSelectionScreen extends StatefulWidget {
   const RoleSelectionScreen({super.key});
