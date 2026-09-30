@@ -268,4 +268,241 @@ static final FirebaseService _instance = FirebaseService._internal();
     _currentMockUser = null;
   }
 
+  // FIRESTORE: USERS
+
+  // Check if a user document exists in users/ collection by UID
+  Future<Map<String, dynamic>?> getUser(String uid) async {
+    try {
+      if (_isFirebaseInitialized && _firestore != null) {
+        DocumentSnapshot doc = await _firestore!
+            .collection('users')
+            .doc(uid)
+            .get()
+            .timeout(const Duration(seconds: 4));
+        if (doc.exists) {
+          return doc.data() as Map<String, dynamic>?;
+        }
+        return null;
+      } else {
+        return _mockUsers[uid];
+      }
+    } catch (e) {
+      debugPrint("Notice fetching user (falling back): $e");
+      return _mockUsers[uid];
+    }
+  }
+
+  // Create or update a user profile document in users/
+  Future<void> saveUser({
+    required String uid,
+    required Map<String, dynamic> data,
+  }) async {
+    try {
+      data['updatedAt'] = DateTime.now().toIso8601String();
+      if (_isFirebaseInitialized && _firestore != null) {
+        await _firestore!
+            .collection('users')
+            .doc(uid)
+            .set(data, SetOptions(merge: true))
+            .timeout(const Duration(seconds: 4));
+      }
+      _mockUsers[uid] = data;
+      _currentMockUser = data;
+    } catch (e) {
+      debugPrint("Notice saving user (saved locally): $e");
+      _mockUsers[uid] = data;
+      _currentMockUser = data;
+    }
+  }
+
+  // FIRESTORE: CROPS
+
+  // Get every crop available in the marketplace, newest first
+  Future<List<Map<String, dynamic>>> getCrops() async {
+    try {
+      if (_isFirebaseInitialized && _firestore != null) {
+        QuerySnapshot snapshot = await _firestore!
+            .collection('crops')
+            .orderBy('createdAt', descending: true)
+            .get()
+            .timeout(const Duration(seconds: 4));
+        if (snapshot.docs.isNotEmpty) {
+          return snapshot.docs.map((doc) {
+            Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+            data['id'] = doc.id;
+            return data;
+          }).toList();
+        }
+      }
+      return List<Map<String, dynamic>>.from(_mockCrops);
+    } catch (e) {
+      debugPrint("Notice reading marketplace crops (using cached list): $e");
+      return List<Map<String, dynamic>>.from(_mockCrops);
+    }
+  }
+
+  // Get every crop this specific farmer has listed in their storefront
+  Future<List<Map<String, dynamic>>> getCropsByFarmer(String farmerId) async {
+    try {
+      if (_isFirebaseInitialized && _firestore != null) {
+        QuerySnapshot snapshot = await _firestore!
+            .collection('crops')
+            .where('farmerId', isEqualTo: farmerId)
+            .get()
+            .timeout(const Duration(seconds: 4));
+        if (snapshot.docs.isNotEmpty) {
+          return snapshot.docs.map((doc) {
+            Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+            data['id'] = doc.id;
+            return data;
+          }).toList();
+        }
+      }
+      return _mockCrops.where((c) => c['farmerId'] == farmerId || farmerId.isEmpty).toList();
+    } catch (e) {
+      debugPrint("Notice fetching farmer storefront crops: $e");
+      return _mockCrops.where((c) => c['farmerId'] == farmerId || farmerId.isEmpty).toList();
+    }
+  }
+
+  // Read a single crop listing by its unique cropId
+  Future<Map<String, dynamic>?> getCropById(String cropId) async {
+    try {
+      if (_isFirebaseInitialized && _firestore != null) {
+        DocumentSnapshot doc = await _firestore!
+            .collection('crops')
+            .doc(cropId)
+            .get()
+            .timeout(const Duration(seconds: 4));
+        if (doc.exists) {
+          Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+          data['id'] = doc.id;
+          return data;
+        }
+      }
+      return _mockCrops.firstWhere((c) => c['id'] == cropId, orElse: () => _mockCrops.first);
+    } catch (e) {
+      debugPrint("Notice getting crop by id: $e");
+      return _mockCrops.firstWhere((c) => c['id'] == cropId, orElse: () => _mockCrops.first);
+    }
+  }
+
+  // Publish a brand new crop listing to the crops/ collection
+  Future<void> addCrop(Map<String, dynamic> cropData) async {
+    try {
+      cropData['createdAt'] = DateTime.now().toIso8601String();
+      if (_isFirebaseInitialized && _firestore != null) {
+        DocumentReference ref = await _firestore!
+            .collection('crops')
+            .add(cropData)
+            .timeout(const Duration(seconds: 4));
+        cropData['id'] = ref.id;
+      } else {
+        cropData['id'] = 'crop_${DateTime.now().millisecondsSinceEpoch}';
+      }
+      _mockCrops.insert(0, cropData);
+    } catch (e) {
+      debugPrint("Notice adding new crop listing: $e");
+      cropData['id'] = 'crop_${DateTime.now().millisecondsSinceEpoch}';
+      _mockCrops.insert(0, cropData);
+    }
+  }
+
+  // FIRESTORE: ORDERS & BUYER CARTS
+
+  // Write a new order document into orders/ when a buyer checks out
+  Future<String> createOrder(Map<String, dynamic> orderData) async {
+    try {
+      orderData['createdAt'] = DateTime.now().toIso8601String();
+      orderData['status'] = 'placed'; // Initial order state
+      if (_isFirebaseInitialized && _firestore != null) {
+        DocumentReference ref = await _firestore!
+            .collection('orders')
+            .add(orderData)
+            .timeout(const Duration(seconds: 4));
+        orderData['id'] = ref.id;
+        _mockOrders.insert(0, orderData);
+        return ref.id;
+      } else {
+        String newId = 'order_${DateTime.now().millisecondsSinceEpoch}';
+        orderData['id'] = newId;
+        _mockOrders.insert(0, orderData);
+        return newId;
+      }
+    } catch (e) {
+      debugPrint("Notice creating order: $e");
+      String newId = 'order_${DateTime.now().millisecondsSinceEpoch}';
+      orderData['id'] = newId;
+      _mockOrders.insert(0, orderData);
+      return newId;
+    }
+  }
+
+  // Read all incoming orders placed for this farmer's crops
+  Future<List<Map<String, dynamic>>> getIncomingOrders(String farmerId) async {
+    try {
+      if (_isFirebaseInitialized && _firestore != null) {
+        QuerySnapshot snapshot = await _firestore!
+            .collection('orders')
+            .where('farmerId', isEqualTo: farmerId)
+            .get()
+            .timeout(const Duration(seconds: 4));
+        if (snapshot.docs.isNotEmpty) {
+          return snapshot.docs.map((doc) {
+            Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+            data['id'] = doc.id;
+            return data;
+          }).toList();
+        }
+      }
+      return _mockOrders.where((o) => o['farmerId'] == farmerId || farmerId.isEmpty).toList();
+    } catch (e) {
+      debugPrint("Notice fetching incoming orders for farmer: $e");
+      return _mockOrders.where((o) => o['farmerId'] == farmerId || farmerId.isEmpty).toList();
+    }
+  }
+
+  // Read all orders placed by this buyer for order tracking
+  Future<List<Map<String, dynamic>>> getBuyerOrders(String buyerId) async {
+    try {
+      if (_isFirebaseInitialized && _firestore != null) {
+        QuerySnapshot snapshot = await _firestore!
+            .collection('orders')
+            .where('buyerId', isEqualTo: buyerId)
+            .get()
+            .timeout(const Duration(seconds: 4));
+        if (snapshot.docs.isNotEmpty) {
+          return snapshot.docs.map((doc) {
+            Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+            data['id'] = doc.id;
+            return data;
+          }).toList();
+        }
+      }
+      return _mockOrders.where((o) => o['buyerId'] == buyerId || buyerId.isEmpty).toList();
+    } catch (e) {
+      debugPrint("Notice fetching buyer orders: $e");
+      return _mockOrders.where((o) => o['buyerId'] == buyerId || buyerId.isEmpty).toList();
+    }
+  }
+
+  // Update order status (placed -> confirmed -> in_transit -> delivered)
+  Future<void> updateOrderStatus(String orderId, String newStatus) async {
+    try {
+      if (_isFirebaseInitialized && _firestore != null) {
+        await _firestore!
+            .collection('orders')
+            .doc(orderId)
+            .update({'status': newStatus})
+            .timeout(const Duration(seconds: 4));
+      }
+      int index = _mockOrders.indexWhere((o) => o['id'] == orderId);
+      if (index != -1) {
+        _mockOrders[index]['status'] = newStatus;
+      }
+    } catch (e) {
+      debugPrint("Notice updating order status: $e");
+    }
+  }
+
 }
